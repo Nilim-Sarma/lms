@@ -130,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
 			findByEmpId.setStatus(mentordetails.getStatus());
 			List<Technologies> findAllById = technologiesRepo.findAllById(mentordetails.getTechId());
 			findByEmpId.setTechnologies(findAllById);
-			return findByEmpId;
+			return mentorRepo.save(findByEmpId);
 		}
 	}
 
