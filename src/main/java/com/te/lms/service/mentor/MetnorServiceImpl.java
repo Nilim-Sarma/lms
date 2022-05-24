@@ -15,7 +15,7 @@ import com.te.lms.dto.mentor.AddMockDTO;
 import com.te.lms.dto.mentor.AddMockRatingsDTO;
 import com.te.lms.dto.mentor.AttendanceDTO;
 import com.te.lms.dto.mentor.MentorBatchResDto;
-import com.te.lms.pojo.MyUserDetails;
+import com.te.lms.pojo.User;
 import com.te.lms.pojo.admin.BatchDetails;
 import com.te.lms.pojo.employee.Employee;
 import com.te.lms.pojo.employee.Technologies;
@@ -168,7 +168,7 @@ public class MetnorServiceImpl implements MentorService {
 
 	@Override
 	public String changePassword(ChangePasswordDTO dto) {
-		MyUserDetails userDetails = userInfoRepo.findByUsername(dto.getEmpId());
+		User userDetails = userInfoRepo.findByUserName(dto.getEmpId());
 		if (userDetails == null) {
 			throw new RuntimeException("No user with the Username");
 		}

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.te.lms.dto.employee.AddEmployeeDTO;
-import com.te.lms.pojo.MyUserDetails;
+import com.te.lms.pojo.User;
 import com.te.lms.pojo.admin.EmployeeRequest;
 import com.te.lms.pojo.employee.Employee;
 import com.te.lms.pojo.employee.Technologies;
@@ -45,8 +45,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setTech(findAllById);
 		String password = emailServices.sendPassword(employee.getEmail());
 		Employee save = empRepo.save(employee);
-		MyUserDetails userInfo = new MyUserDetails();
-		userInfo.setUsername(employeedetails.getEmpId());
+		User userInfo = new User();
+		userInfo.setUserName(employeedetails.getEmpId());
 		userInfo.setPassword(password);
 		userInfo.setAuthorities("ROLE_EMPLOYEE");
 		userInfoRepo.save(userInfo);

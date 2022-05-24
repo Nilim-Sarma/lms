@@ -92,7 +92,8 @@ public class MentorController {
 	/*
 	 * Change Password Api	
 	 */
-	public ResponseEntity<ResponseDTO> changePassword(ChangePasswordDTO change) {
+	@PostMapping("/password")
+	public ResponseEntity<ResponseDTO> changePassword(@RequestBody ChangePasswordDTO change) {
 		String changePassword = service.changePassword(change);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO(false, "Password changed successfully", changePassword),
 				HttpStatus.OK);

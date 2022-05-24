@@ -16,7 +16,7 @@ import com.te.lms.dto.admin.RejectDTO;
 import com.te.lms.dto.admin.RequestApproveDTO;
 import com.te.lms.dto.employee.EmpRequestResDTO;
 import com.te.lms.dto.mentor.AddMentorDTO;
-import com.te.lms.pojo.MyUserDetails;
+import com.te.lms.pojo.User;
 import com.te.lms.pojo.admin.BatchDetails;
 import com.te.lms.pojo.admin.EmployeeRequest;
 import com.te.lms.pojo.employee.Employee;
@@ -116,8 +116,8 @@ public class AdminServiceImpl implements AdminService {
 			List<Technologies> findAllById = technologiesRepo.findAllById(mentordetails.getTechId());
 			mentor.setTechnologies(findAllById);
 			String password = emailService.sendPassword(mentordetails.getEmailId());
-			MyUserDetails userInfo = new MyUserDetails();
-			userInfo.setUsername(mentor.getEmpId());
+			User userInfo = new User();
+			userInfo.setUserName(mentor.getEmpId());
 			userInfo.setPassword(password);
 			userInfo.setAuthorities("ROLE_MENTOR");
 			userInfoRepo.save(userInfo);
@@ -221,8 +221,8 @@ public class AdminServiceImpl implements AdminService {
 		batchRepo.save(batchDetails);
 		findAllById.stream().forEach(e -> {
 			String sendPassword = emailService.sendPassword(e.getEmail());
-			MyUserDetails userInfo = new MyUserDetails();
-			userInfo.setUsername(e.getEmpId());
+			User userInfo = new User();
+			userInfo.setUserName(e.getEmpId());
 			userInfo.setPassword(sendPassword);
 			userInfo.setAuthorities("ROLE_EMPLOYEE");
 			userInfoRepo.save(userInfo);
