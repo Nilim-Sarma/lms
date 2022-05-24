@@ -33,42 +33,42 @@ public class Employee {
 	private String empName;
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private LocalDate doj;
-	@JsonFormat(pattern ="yyyy/MM/dd")
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	private LocalDate dob;
 	private String email;
 	private String bloodGroup;
-	private String designation; 	
+	private String designation;
 	private String gender;
 	private String nationality;
 	private String status;
 	private LocalDate lastLogin;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private SecondaryInfo info;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<EducationDetails> educationDetails;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Address> address;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private BankDetails bankDetails;
-	
-	@ManyToMany
-	private List<Technologies> tech;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Experience> exp;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Contact> contact;
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
 	@JsonManagedReference
 	private List<MockRatings> ratings;
-	
+
 	@OneToMany(mappedBy = "employee")
 	private List<Attendance> attendances;
-	
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<TechnicalSkills> technicalSkills;
+
 }

@@ -38,11 +38,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public Employee addEmployee(AddEmployeeDTO employeedetails) {
-		List<Integer> tech = employeedetails.getTech();
-		List<Technologies> findAllById = technologiesRepo.findAllById(tech);
 		Employee employee = new Employee();
 		BeanUtils.copyProperties(employeedetails, employee);
-		employee.setTech(findAllById);
 		String password = emailServices.sendPassword(employee.getEmail());
 		Employee save = empRepo.save(employee);
 		User userInfo = new User();

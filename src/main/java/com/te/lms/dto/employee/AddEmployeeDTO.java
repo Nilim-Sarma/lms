@@ -14,6 +14,7 @@ import com.te.lms.pojo.employee.Contact;
 import com.te.lms.pojo.employee.EducationDetails;
 import com.te.lms.pojo.employee.Experience;
 import com.te.lms.pojo.employee.SecondaryInfo;
+import com.te.lms.pojo.employee.TechnicalSkills;
 
 import lombok.Data;
 
@@ -69,7 +70,7 @@ public class AddEmployeeDTO {
 	
 	private BankDetails bankDetails;
 	
-	private List<Integer> tech;
+	private List<TechnicalSkills> tech;
 	
 	private List<Experience> exp;
 	
