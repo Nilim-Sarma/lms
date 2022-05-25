@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.te.lms.dto.admin.ChangePasswordDTO;
 import com.te.lms.dto.employee.AddEmployeeDTO;
 import com.te.lms.pojo.User;
 import com.te.lms.pojo.admin.EmployeeRequest;
@@ -26,20 +27,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private TechnologiesRepo technologiesRepo;
-	
+
 	@Autowired
 	private EmployeeRequestRepo requestRepo;
-	
+
 	@Autowired
 	private EmailServicesLms emailServices;
-	
+
 	@Autowired
 	private UserInfoRepo userInfoRepo;
-	
+
 	@Override
 	public Employee addEmployee(AddEmployeeDTO employeedetails) {
 		Employee employee = new Employee();
 		BeanUtils.copyProperties(employeedetails, employee);
+		employee.setStatus("Pending");
 		String password = emailServices.sendPassword(employee.getEmail());
 		Employee save = empRepo.save(employee);
 		User userInfo = new User();
@@ -78,11 +80,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee updateEmployeeDeatils(AddEmployeeDTO employee, Integer id) {
+	public Employee updateEmployeeDetails(AddEmployeeDTO employee, Integer id) {
 		Employee empDetails = empRepo.findById(id).get();
 		BeanUtils.copyProperties(employee, empDetails);
 		Employee employee2 = empRepo.save(empDetails);
 		return employee2;
+	}
+
+	@Override
+	public String changePassword(ChangePasswordDTO changePasswordDTO) {
+		User userDetails = userInfoRepo.findByUserName(changePasswordDTO.getEmpId());
+		if (userDetails == null) {
+			throw new RuntimeException("No user with the Username");
+		}
+		if (changePasswordDTO.getExistingPassword().equals(userDetails.getPassword())
+				&& changePasswordDTO.getNewPassword().equals(changePasswordDTO.getReTypeNewPassword())) {
+			userDetails.setPassword(changePasswordDTO.getNewPassword());
+			userInfoRepo.save(userDetails);
+			return changePasswordDTO.getNewPassword();
+		} else {
+			return "Password Did not update";
+		}
 	}
 
 }

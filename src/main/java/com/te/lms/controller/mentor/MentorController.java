@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import com.te.lms.service.mentor.MentorService;
 
 @RestController
 @RequestMapping("/lms/v1/mentor")
+@CrossOrigin(origins = "*")
 public class MentorController {
 
 	@Autowired
@@ -85,23 +87,23 @@ public class MentorController {
 	@GetMapping("/mentorbatch/{mentorId}")
 	public ResponseEntity<ResponseDTO> getAllBatchs(@PathVariable Integer mentorId) {
 		List<MentorBatchResDto> allBatch = service.getAllBatch(mentorId);
-		return new ResponseEntity<ResponseDTO>(
+		return new ResponseEntity<>(
 				new ResponseDTO(false, "Mentor Batch Details feteched successfully", allBatch), HttpStatus.OK);
 	}
 
 	/*
-	 * Change Password Api	
+	 * Change Password Api
 	 */
 	@PostMapping("/password")
 	public ResponseEntity<ResponseDTO> changePassword(@RequestBody ChangePasswordDTO change) {
-		String changePassword = service.changePassword(change);
-		return new ResponseEntity<ResponseDTO>(new ResponseDTO(false, "Password changed successfully", changePassword),
+		service.changePassword(change);
+		return new ResponseEntity<>(new ResponseDTO(false, "Password changed successfully", "New password"),
 				HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/attendance")
-	public ResponseEntity<ResponseDTO> attendance(@RequestBody AttendanceDTO attendance){
+	public ResponseEntity<ResponseDTO> attendance(@RequestBody AttendanceDTO attendance) {
 		service.giveAttendance(attendance);
-		return new ResponseEntity<>(new ResponseDTO(false, "Attendance Updated", attendance),HttpStatus.OK);
+		return new ResponseEntity<>(new ResponseDTO(false, "Attendance Updated", attendance), HttpStatus.OK);
 	}
 }

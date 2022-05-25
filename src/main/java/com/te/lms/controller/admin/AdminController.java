@@ -36,7 +36,7 @@ import com.te.lms.service.admin.AdminService;
 public class AdminController {
 
 	@Autowired
-	AdminService service;
+	private AdminService service;
 
 	@PostMapping("/batch")
 	public ResponseEntity<ResponseDTO> addBatch(@RequestBody BatchDTO details) {
@@ -62,7 +62,7 @@ public class AdminController {
 	public ResponseEntity<ResponseDTO> addMentor(@RequestBody AddMentorDTO mentorDetails) {
 		Mentor addMentor = service.addMentor(mentorDetails);
 		ResponseDTO body = new ResponseDTO(false, "Added mentor Successfully", addMentor);
-		return new ResponseEntity<ResponseDTO>(body, HttpStatus.OK);
+		return new ResponseEntity<>(body, HttpStatus.OK);
 	}
 
 	@GetMapping("/batch")
