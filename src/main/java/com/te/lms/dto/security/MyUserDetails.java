@@ -1,4 +1,4 @@
-package com.te.lms.dto;
+package com.te.lms.dto.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

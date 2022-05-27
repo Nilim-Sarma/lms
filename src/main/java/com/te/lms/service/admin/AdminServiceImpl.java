@@ -2,6 +2,7 @@ package com.te.lms.service.admin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.te.lms.customexcpetion.BatchCreationExeption;
+import com.te.lms.customexcpetion.MentorDetailsNotFoundException;
 import com.te.lms.dto.admin.BatchDTO;
 import com.te.lms.dto.admin.BatchDetailsAdminDTO;
 import com.te.lms.dto.admin.DropDownDTO;
@@ -64,17 +67,19 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public BatchDetails addBatch(BatchDTO details) {
-		Mentor mentor = mentorRepo.findById(details.getMentorId()).get();
+		Optional<Mentor> mentor = mentorRepo.findById(details.getMentorId());
+		if(!mentor.isPresent()) {
+			throw new MentorDetailsNotFoundException("Mentor doesn't exist");
+		}
+		Mentor mentorDetails = mentor.get();
 		List<Technologies> technologies = technologiesRepo.findAllById(details.getTechId());
 		BatchDetails batchDetails = new BatchDetails();
 		BeanUtils.copyProperties(details, batchDetails);
 		batchDetails.setTechnologies(technologies);
-		batchDetails.setMentor(mentor);
+		batchDetails.setMentor(mentorDetails);
 		BatchDetails save = batchRepo.save(batchDetails);
-		if (save == null) {
-			throw new RuntimeException();
-		}
-		return save;
+		
+		throw new BatchCreationExeption("Batch cannot be created!");
 	}
 
 	@Override

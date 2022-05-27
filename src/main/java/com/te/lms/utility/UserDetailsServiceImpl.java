@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.te.lms.customexcpetion.UserNotFoundExcpertion;
-import com.te.lms.dto.MyUserDetails;
+import com.te.lms.customexcpetion.UserNotFoundExcpetion;
+import com.te.lms.dto.security.MyUserDetails;
 import com.te.lms.pojo.User;
 import com.te.lms.repo.UserInfoRepo;
 

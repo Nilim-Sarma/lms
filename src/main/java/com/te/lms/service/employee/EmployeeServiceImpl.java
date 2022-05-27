@@ -11,7 +11,6 @@ import com.te.lms.dto.employee.AddEmployeeDTO;
 import com.te.lms.pojo.User;
 import com.te.lms.pojo.admin.EmployeeRequest;
 import com.te.lms.pojo.employee.Employee;
-import com.te.lms.pojo.employee.Technologies;
 import com.te.lms.pojo.mentor.MockRatings;
 import com.te.lms.repo.TechnologiesRepo;
 import com.te.lms.repo.UserInfoRepo;
@@ -24,9 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepo empRepo;
-
-	@Autowired
-	private TechnologiesRepo technologiesRepo;
 
 	@Autowired
 	private EmployeeRequestRepo requestRepo;
